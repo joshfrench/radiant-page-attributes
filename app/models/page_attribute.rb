@@ -25,6 +25,10 @@ class PageAttribute < ActiveRecord::Base
     self.name.titleize
   end
   
+  def self.partial_name
+    self.name.gsub(" ", '').underscore
+  end
+  
   def self.list_subclasses
     self.subclasses
   end
