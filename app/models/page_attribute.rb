@@ -4,6 +4,8 @@ class PageAttribute < ActiveRecord::Base
   belongs_to :page
   set_inheritance_column :class_name
 
+  before_save :serialize!
+
   def file_name
     self.class.name.underscore
   end

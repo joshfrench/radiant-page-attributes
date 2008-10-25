@@ -12,7 +12,7 @@ end
 
 describe PageAttribute do
   before(:each) do
-    @s = SimpleBoolean.new(:name => "Should I?", :value => "Yes")
+    @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean")
   end
 
   it "should give a file_name" do
@@ -33,5 +33,12 @@ describe PageAttribute do
     @s.serialize!
     
     @s.value.should be_false
+  end
+  
+  it "should serialize! before saving" do
+    @s.value = "Yes"
+    @s.save!
+    
+    @s.value.should == true
   end
 end
