@@ -2,6 +2,6 @@
 - @stylesheets << 'admin/structures'
 #page-attributes
   %table.fieldset
-    = render :partial => "/admin/structures/page_attribute", :collection => @page.page_attributes
+    = render :partial => "/admin/page_attributes/page_attribute", :collection => @page.page_attributes
 #add-structure
   = link_to_function image('plus', :alt => 'plus'), 'toggle_add_structure_popup()', :title => 'Add Structure'
