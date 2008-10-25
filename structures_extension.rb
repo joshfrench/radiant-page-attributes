@@ -6,13 +6,14 @@ class StructuresExtension < Radiant::Extension
   description "Describe your extension here"
   url "http://yourwebsite.com/structures"
   
-  # define_routes do |map|
-  #   map.connect 'admin/structures/:action', :controller => 'admin/structures'
-  # end
+  define_routes do |map|
+    map.admin_add_structure 'admin/structures/:action', :controller => 'admin/structures'
+  end
   
   def activate
     Page.send(:include, Structures::PageExtensions)
     admin.page.edit.add :form, "/admin/structures/add_structure", :before => :edit_page_parts, :visibility => [:all]
+    Dir.glob(File.join(StructuresExtension.root, %w(app models), '*.rb')).each { |f| require_dependency f }
   end
 
   def deactivate
