@@ -35,6 +35,16 @@ describe PageAttribute do
     @s.value.should be_false
   end
   
+  it "should cast to subclass on instantiate" do
+    attribute = PageAttribute.new('class_name' => 'SimpleBoolean')
+    attribute.should be_kind_of(SimpleBoolean)
+  end
+  
+  it "should be a PageAttribute if not passed a subclass" do
+    attribute = PageAttribute.new
+    attribute.should be_kind_of(PageAttribute)
+  end
+
   it "should serialize! before saving" do
     @s.value = "Yes"
     @s.save!
