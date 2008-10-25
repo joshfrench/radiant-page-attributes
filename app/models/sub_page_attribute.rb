@@ -1,3 +1,0 @@
-class SubPageAttribute < PageAttribute
-  
-end
