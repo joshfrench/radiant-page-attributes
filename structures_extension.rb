@@ -11,9 +11,9 @@ class StructuresExtension < Radiant::Extension
   # end
   
   def activate
-    # admin.tabs.add "Structures", "/admin/structures", :after => "Layouts", :visibility => [:all]
+    Page.send(:include, Structures::PageExtensions)
   end
-  
+
   def deactivate
     # admin.tabs.remove "Structures"
   end
