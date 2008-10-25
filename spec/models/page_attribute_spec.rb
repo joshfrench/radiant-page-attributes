@@ -11,8 +11,8 @@ describe PageAttribute do
     @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean", :page_id => 4)
   end
 
-  it "should give a file_name" do
-    @s.file_name.should == "simple_boolean"
+  it "should give a param_name" do
+    @s.param_name.should == "should_i"
   end
 
   it "should give a display_name for the class" do

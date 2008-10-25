@@ -1,11 +1,11 @@
 %tr
   %th.label
-    %label{:for => "page_attribute_#{page_attribute.file_name}"}
+    %label{:for => "page_attribute_#{page_attribute.key_name}"}
       = page_attribute.name
       %small.info
         = "(#{page_attribute.class.display_name})"
   %td.field
-    = render :partial => "/admin/page_attributes/#{page_attribute.file_name}", :locals => { :page_attribute => page_attribute }
+    = render :partial => "/admin/page_attributes/#{page_attribute.key_name}", :locals => { :page_attribute => page_attribute }
   %td
     = link_to_function image('minus', :alt => 'minus'), 'if(confirm(\'Delete this attribute?\')) { alert("TODO: Implement deletion.") }', :title => 'Remove Attribute'
   

@@ -25,8 +25,8 @@ class PageAttribute < ActiveRecord::Base
     self.subclasses
   end
 
-  def file_name
-    self.class.name.underscore
+  def param_name
+    self.name.gsub(/\s/, "_").gsub(/[^A-Za-z\-\_\.]/, '').downcase
   end
   
   # Override to change behavior when the page is rendered
