@@ -29,10 +29,6 @@ class PageAttribute < ActiveRecord::Base
     self.class.name.underscore
   end
   
-  def partial_name
-    "_#{file_name}"
-  end
-  
   # Override to change behavior when the page is rendered
   def render
   end

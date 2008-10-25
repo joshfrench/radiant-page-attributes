@@ -15,10 +15,6 @@ describe PageAttribute do
     @s.file_name.should == "simple_boolean"
   end
 
-  it "should give a partial_name" do
-    @s.partial_name.should == "_simple_boolean"
-  end
-  
   it "should give a display_name for the class" do
     SimpleBoolean.display_name.should == "Simple Boolean"
   end

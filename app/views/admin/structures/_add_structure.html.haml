@@ -3,6 +3,10 @@
 #add-structure
   = link_to_function image('plus', :alt => 'plus'), 'toggle_add_structure_popup()', :title => 'Add Structure'
 
+#page-attributes
+  %table.fieldset
+    = render :partial => "/admin/structures/page_attribute", :collection => @page.page_attributes
+
 #add-structure-popup.popup{:style => "display: none"}
   #structure-busy.busy{:style => "display: none"}= image 'spinner.gif'
   %h3 Add Attribute
