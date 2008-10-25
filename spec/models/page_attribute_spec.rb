@@ -19,6 +19,10 @@ describe PageAttribute do
     SimpleBoolean.display_name.should == "Simple Boolean"
   end
   
+  it "should give a template name based on the class name" do
+    SimpleBoolean.partial_name.should == "simple_boolean"
+  end
+  
   it "should cast to subclass on instantiate" do
     attribute = PageAttribute.new('class_name' => 'SimpleBoolean')
     attribute.should be_kind_of(SimpleBoolean)
