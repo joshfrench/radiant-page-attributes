@@ -3,16 +3,17 @@ module Structures
     
     def self.included(base)
       base.class_eval do
-        has_many :page_attributes
-        
-        def build_page_attributes=(*args)
-          self.page_attributes.destroy_all
-          args.compact.each do |page_attribute|
-            self.page_attributes.build(page_attribute)
+        has_many :page_attributes do
+          def []=(name,value)
+            self.build(:name => name, :value => value, :page => proxy_owner)
           end
-          self.page_attributes
-        end
-        
+          
+          def [](name)
+            if attr = self.find_by_name(name)
+              attr.value
+            end
+          end
+        end        
       end
     end
      

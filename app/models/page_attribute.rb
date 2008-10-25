@@ -1,6 +1,7 @@
 class PageAttribute < ActiveRecord::Base
-  validates_presence_of :page_id
+  validates_presence_of :page
   validates_presence_of :name
+  validates_uniqueness_of :name, :scope => :page_id
   belongs_to :page
   set_inheritance_column :class_name
 
@@ -10,7 +11,7 @@ class PageAttribute < ActiveRecord::Base
     attributes = HashWithIndifferentAccess.new(attributes)
     new_record = super(attributes)
     unless attributes[:class_name].blank?
-      new_record = new_record.becomes(attributes[:class_name].constantize)
+      new_record = new_record.becomes(attributes[:class_name].constantize) # should check for subclass!
       new_record.class_name = attributes[:class_name]
     end
     new_record
