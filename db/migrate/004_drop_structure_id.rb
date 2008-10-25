@@ -1,5 +1,6 @@
 class DropStructureId < ActiveRecord::Migration
   def self.up
+    remove_index :page_attributes, [:page_id, :structure_id]
     remove_column :page_attributes, :structure_id
   end
   
