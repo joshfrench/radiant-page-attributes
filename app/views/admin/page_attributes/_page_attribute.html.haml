@@ -6,6 +6,5 @@
         = "(#{page_attribute.class.display_name})"
   %td.field
     = render :partial => "/admin/page_attributes/#{page_attribute.class.partial_name}", :locals => { :page_attribute => page_attribute }
-  %td
     = link_to_function image('minus', :alt => 'minus'), 'if(confirm(\'Delete this attribute?\')) { alert("TODO: Implement deletion.") }', :title => 'Remove Attribute'
   
