@@ -12,6 +12,7 @@ class StructuresExtension < Radiant::Extension
   
   def activate
     Page.send(:include, Structures::PageExtensions)
+    admin.page.edit.add :form, "/admin/structures/add_structure", :before => :edit_page_parts, :visibility => [:all]
   end
 
   def deactivate
