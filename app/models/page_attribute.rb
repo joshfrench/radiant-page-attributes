@@ -21,4 +21,13 @@ class PageAttribute < ActiveRecord::Base
   def partial_name
     "_#{file_name}"
   end
+  
+  # Override to change behavior when the page is rendered
+  def render
+  end
+  
+  # Required override for saving data from form
+  def serialize!
+    raise
+  end
 end
