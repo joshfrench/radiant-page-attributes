@@ -1,10 +1,11 @@
 #add-structure-popup.popup{:style => "display: none"}
   #structure-busy.busy{:style => "display: none"}= image 'spinner.gif'
   %h3 Add Attribute
-  - form_remote_tag(:url => page_add_structure_url, :update => "extended-metadata", :position => :bottom, :loading => 'structure_loading()', :complete => 'structure_added()', :condition => 'valid_structure_name()') do
+  - form_remote_tag(:url => admin_add_structure_url, :update => "extended-metadata", :position => :bottom, :loading => 'structure_loading()', :complete => 'structure_added()', :condition => 'valid_structure_name()') do
     %div
       = hidden_field_tag 'index', @index, :id => 'structure-index-field'
-      = text_field_tag "attribute[name]", "", :id => 'attr-name-field', :maxlength => 100
-      = submit_tag "Add Attribute", :id => 'add-part-button'
+      = text_field_tag "attribute[name]", "", :id => 'structure-name-field', :maxlength => 100
+      = select_tag "attribute[class_name]", options_for_select(PageAttribute.list_subclasses.map {|c| [c.display_name, c.name]})
+      = submit_tag "Add", :id => 'add-structure-button'
       %p
-      = link_to_function 'Close', "$(this).up('.popup').hide()", :class => 'close-link'
+        = link_to_function 'Close', "$(this).up('.popup').hide()", :class => 'close-link'
