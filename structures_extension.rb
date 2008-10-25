@@ -13,6 +13,7 @@ class StructuresExtension < Radiant::Extension
   def activate
     Page.send(:include, Structures::PageExtensions)
     admin.page.edit.add :form, "/admin/structures/add_structure", :before => :edit_page_parts, :visibility => [:all]
+#    admin.page.edit.add :extended_metadata, "/admin/structures/add_structure"
     Dir.glob(File.join(StructuresExtension.root, %w(app models), '*.rb')).each { |f| require_dependency f }
   end
 
