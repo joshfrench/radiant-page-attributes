@@ -1,12 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 class SimpleBoolean < PageAttribute
-  def true_string
-    "Yes"
-  end
-  
   def serialize!
-    self.value = self.value == self.true_string
+    self.value = (self.value.to_i == 1)
   end
 end
 
@@ -38,7 +34,7 @@ describe PageAttribute do
   end
 
   it "should serialize the value" do
-    @s.value = "Yes"
+    @s.value = "1"
     @s.serialize!
     
     @s.value.should be_true
@@ -50,7 +46,7 @@ describe PageAttribute do
   end
 
   it "should serialize! before saving" do
-    @s.value = "Yes"
+    @s.value = "1"
     @s.save!
     
     @s.value.should == true
