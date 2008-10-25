@@ -12,7 +12,7 @@ end
 
 describe PageAttribute do
   before(:each) do
-    @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean")
+    @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean", :page_id => 4)
   end
 
   it "should give a file_name" do
@@ -21,6 +21,16 @@ describe PageAttribute do
 
   it "should give a partial_name" do
     @s.partial_name.should == "_simple_boolean"
+  end
+  
+  it "should cast to subclass on instantiate" do
+    attribute = PageAttribute.new('class_name' => 'SimpleBoolean')
+    attribute.should be_kind_of(SimpleBoolean)
+  end
+  
+  it "should be a PageAttribute if not passed a subclass" do
+    attribute = PageAttribute.new
+    attribute.should be_kind_of(PageAttribute)
   end
 
   it "should serialize the value" do
@@ -33,16 +43,6 @@ describe PageAttribute do
     @s.serialize!
     
     @s.value.should be_false
-  end
-  
-  it "should cast to subclass on instantiate" do
-    attribute = PageAttribute.new('class_name' => 'SimpleBoolean')
-    attribute.should be_kind_of(SimpleBoolean)
-  end
-  
-  it "should be a PageAttribute if not passed a subclass" do
-    attribute = PageAttribute.new
-    attribute.should be_kind_of(PageAttribute)
   end
 
   it "should serialize! before saving" do
