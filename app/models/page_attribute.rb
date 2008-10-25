@@ -16,6 +16,10 @@ class PageAttribute < ActiveRecord::Base
     new_record
   end
 
+  def self.display_name
+    self.name.titleize
+  end
+
   def file_name
     self.class.name.underscore
   end
