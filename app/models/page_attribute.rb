@@ -36,8 +36,8 @@ class PageAttribute < ActiveRecord::Base
   def render
   end
   
-  # Required override for saving data from form
+  # Override for saving data from form
   def serialize!
-    raise
+    return self
   end
 end
