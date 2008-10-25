@@ -4,6 +4,10 @@ class PageAttribute < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :page_id
   belongs_to :page
   set_inheritance_column :class_name
+  
+  def class_name=(klass)
+    self.write_attribute(:class_name, klass) if self.class.base_class.descendants.map(&:name).include?(klass)
+  end
 
   before_save :serialize!
 

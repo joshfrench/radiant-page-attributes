@@ -7,7 +7,7 @@ class StructuresExtension < Radiant::Extension
   url "http://yourwebsite.com/structures"
   
   define_routes do |map|
-    map.admin_add_attribute 'admin/page_attributes/:action', :controller => 'admin/page_attributes'
+    map.admin_add_attribute 'admin/page_attributes/add', :controller => 'admin/page_attributes', :action => 'add_attribute'
   end
   
   def activate
