@@ -1,4 +1,4 @@
-class DropStructure < ActiveRecord::Migration
+class DropStructures < ActiveRecord::Migration
   def self.up
     drop_table :structures
   end
