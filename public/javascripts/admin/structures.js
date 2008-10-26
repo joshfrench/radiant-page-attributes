@@ -22,19 +22,25 @@ function page_attribute_loading() {
   $('page-attribute-busy').appear();
 }
 
-function page_attribute_added() {
-  var stNameField = $('page-attribute-name-field');
-  var stIndexField = $('page-attribute-index-field');
-  var index = parseInt(stIndexField.value || 0) + 1;
-  var tab = 'tab-' + index;
-  var caption = stNameField.value;
-  var page = 'page-' + index;
+function page_attribute_added(response) {
+  // var popup = $('add-page-attribute-popup');
+  // Element.toggle(popup)
+  // var stNameField = $('page-attribute-name-field');
+  // var stIndexField = $('page-attribute-index-field');
+  // var index = parseInt(stIndexField.value || 0) + 1;
+  // var tab = 'tab-' + index;
+  // var caption = stNameField.value;
+  // var page = 'page-' + index;
 //  tabControl.addTab(tab, caption, page);
-  Element.hide('page-attribute-part-popup');
-  Element.hide('page-attribute-busy');
-  stNameField.value = '';
-  stIndexField.value = (index + 1).toString();
-  $('add-page_attribute-button').disabled = false;
-  Field.focus(stNameField);
+  console.log($('add-page-attribute-popup'));
+  $('page-attribute-name-field').value = "";
+  $('add-page-attribute-popup').hide();
+  
+  // Element.hide('page-attribute-part-popup');
+  // Element.hide('page-attribute-busy');
+  // stNameField.value = '';
+  // stIndexField.value = (index + 1).toString();
+  // $('add-page_attribute-button').disabled = false;
+  // Field.focus(stNameField);
 //  tabControl.select(tab);
 }
