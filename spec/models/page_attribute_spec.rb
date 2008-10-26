@@ -8,7 +8,8 @@ end
 
 describe PageAttribute do
   before(:each) do
-    @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean", :page_id => 4)
+    @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean", 
+      :page => Page.create({ :title => 'Page', :slug => 'Slug', :breadcrumb => 'Crumb', :status_id => 100 }))
   end
 
   it "should give a param_name" do

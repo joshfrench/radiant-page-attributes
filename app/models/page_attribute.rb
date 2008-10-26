@@ -3,16 +3,23 @@ class PageAttribute < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :page_id
   belongs_to :page
+  
   set_inheritance_column :class_name
+
+  validate :valid_class_name
 
   before_save :serialize!
 
+  # attr_protected :id
+  # attr_accessible :name, :class_name
+  
   def self.new(attributes={})
     attributes = HashWithIndifferentAccess.new(attributes)
+    klass_name = attributes.delete(:class_name)
     new_record = super(attributes)
-    unless attributes[:class_name].blank?
-      new_record = new_record.becomes(attributes[:class_name].constantize) # should check for subclass!
-      new_record.class_name = attributes[:class_name]
+    if klass_name
+      new_record = new_record.becomes(klass_name.constantize) # should check for subclass!
+      new_record.class_name = klass_name
     end
     new_record
   end
@@ -29,6 +36,11 @@ class PageAttribute < ActiveRecord::Base
     self.subclasses
   end
 
+  # Is this necessary?
+  def class_name=(klass)
+    self.write_attribute("class_name", klass)
+  end
+
   def param_name
     self.name.gsub(/\s/, "_").gsub(/[^A-Za-z\-\_\.]/, '').downcase
   end
@@ -40,5 +52,16 @@ class PageAttribute < ActiveRecord::Base
   # Override for saving data from form
   def serialize!
     return self
+  end
+  
+  private
+  def valid_class_name
+    unless PageAttribute.is_descendant_class_name?(class_name)
+      errors.add :class_name, "must be set to a valid descendant of PageAttribute"
+    end
+  end
+  
+  def self.is_descendant_class_name?(class_name)
+    (PageAttribute.descendants.map(&:to_s) + [nil, "", "PageAttribute"]).include?(class_name)
   end
 end
