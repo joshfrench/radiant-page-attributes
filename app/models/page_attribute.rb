@@ -5,6 +5,10 @@ class PageAttribute < ActiveRecord::Base
   belongs_to :page
   
   set_inheritance_column :class_name
+  
+  def class_name=(klass)
+    self.write_attribute(:class_name, klass) if self.class.base_class.descendants.map(&:name).include?(klass)
+  end
 
   validate :valid_class_name
 
