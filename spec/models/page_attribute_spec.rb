@@ -1,11 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-class SimpleBoolean < PageAttribute
-  def serialize!
-    self.value = (self.value.to_i == 1)
-  end
-end
-
 describe PageAttribute do
   before(:each) do
     @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean", 
