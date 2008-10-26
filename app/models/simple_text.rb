@@ -1,3 +1,2 @@
-class SimpleText < PageAttribute
-  
+class SimpleText < PageAttribute  
 end

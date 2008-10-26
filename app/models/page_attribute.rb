@@ -1,21 +1,14 @@
 class PageAttribute < ActiveRecord::Base
+  set_inheritance_column :class_name
+    
   validates_presence_of :page
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :page_id
-  belongs_to :page
-  
-  set_inheritance_column :class_name
-  
-  def class_name=(klass)
-    self.write_attribute(:class_name, klass) if self.class.base_class.descendants.map(&:name).include?(klass)
-  end
-
   validate :valid_class_name
+  
+  belongs_to :page
 
   before_save :serialize!
-
-  # attr_protected :id
-  # attr_accessible :name, :class_name
   
   def self.new(attributes={})
     attributes = HashWithIndifferentAccess.new(attributes)
@@ -26,6 +19,10 @@ class PageAttribute < ActiveRecord::Base
       new_record.class_name = klass_name
     end
     new_record
+  end
+  
+  def class_name=(klass)
+    self.write_attribute(:class_name, klass) if self.class.base_class.descendants.map(&:name).include?(klass)
   end
 
   def self.display_name
