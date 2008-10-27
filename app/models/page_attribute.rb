@@ -33,10 +33,6 @@ class PageAttribute < ActiveRecord::Base
     self.name.gsub(" ", '').underscore
   end
   
-  def self.list_subclasses
-    self.subclasses
-  end
-  
   # Override to change behavior when the page is rendered
   def render
   end
