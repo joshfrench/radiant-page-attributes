@@ -12,17 +12,17 @@ class PageAttribute < ActiveRecord::Base
   
   def self.new(attributes={})
     attributes = HashWithIndifferentAccess.new(attributes)
-    klass_name = attributes.delete(:class_name)
     new_record = super(attributes)
-    if klass_name
-      new_record = new_record.becomes(klass_name.constantize) # should check for subclass!
+    if klass_name = attributes.delete(:class_name) and
+       [self.base_class, *self.base_class.descendants].include?(klass = klass_name.constantize)
+      new_record = new_record.becomes(klass)
       new_record.class_name = klass_name
     end
     new_record
   end
   
   def class_name=(klass)
-    self.write_attribute(:class_name, klass) if self.class.base_class.descendants.map(&:name).include?(klass)
+    self.write_attribute(:class_name, klass) if [self.base_class, *self.base_class.descendants].map(&:name).include?(klass)
   end
 
   def self.display_name
@@ -35,11 +35,6 @@ class PageAttribute < ActiveRecord::Base
   
   def self.list_subclasses
     self.subclasses
-  end
-
-  # Is this necessary?
-  def class_name=(klass)
-    self.write_attribute("class_name", klass)
   end
   
   # Override to change behavior when the page is rendered

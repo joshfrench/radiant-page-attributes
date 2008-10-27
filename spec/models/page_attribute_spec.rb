@@ -42,4 +42,9 @@ describe PageAttribute do
     
     @s.value.should == true
   end
+
+  it "should not set class_name if param is invalid" do
+    p = PageAttribute.new(:class_name => 'User')
+    p.should be_kind_of(PageAttribute)
+  end
 end
