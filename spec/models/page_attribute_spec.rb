@@ -6,10 +6,6 @@ describe PageAttribute do
       :page => Page.create({ :title => 'Page', :slug => 'Slug', :breadcrumb => 'Crumb', :status_id => 100 }))
   end
 
-  it "should give a param_name" do
-    @s.param_name.should == "should_i"
-  end
-
   it "should give a display_name for the class" do
     SimpleBoolean.display_name.should == "Simple Boolean"
   end

@@ -41,10 +41,6 @@ class PageAttribute < ActiveRecord::Base
   def class_name=(klass)
     self.write_attribute("class_name", klass)
   end
-
-  def param_name
-    self.name.gsub(/\s/, "_").gsub(/[^A-Za-z\-\_\.]/, '').downcase
-  end
   
   # Override to change behavior when the page is rendered
   def render
