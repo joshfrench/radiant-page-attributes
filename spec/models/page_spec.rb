@@ -45,11 +45,10 @@ describe Page do
     page = Page.new
     page.update_attributes(:title => 'Test', :slug => 'test', :breadcrumb => 'test',
                            :status_id => 100, 
-                           :build_page_attributes => { 'sample_attr' => {
-                                                  :name => 'Sample Attr',
-                                                  :class_name => 'SimpleBoolean',
-                                                  :value => '1'
-                           } })
+                           :build_page_attributes => [ {:name => 'Sample Attr',
+                                                        :class_name => 'SimpleBoolean',
+                                                        :value => '1' } ]
+                          )
     page.save!
     page.reload.page_attributes
   end

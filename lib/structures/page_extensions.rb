@@ -17,10 +17,9 @@ module Structures
       end
     end
     
-    def build_page_attributes=(args={})
+    def build_page_attributes=(*args)
       self.page_attributes.clear
-      args.each_pair do |attr,hash|
-        logger.info ">> #{attr.inspect}"
+      args.flatten.each do |hash|
         attr = self.page_attributes.build(hash)
         attr.page = self
       end
