@@ -4,10 +4,12 @@
       = page_attribute.name
       %small.info
         = "(#{page_attribute.class.display_name})"
-      = hidden_field_tag "page[build_page_attributes][#{page_attribute_counter}][class_name]", page_attribute.class_name
-      = hidden_field_tag "page[build_page_attributes][#{page_attribute_counter}][name]", page_attribute.name
+      - fields_for "page[build_page_attributes][#{page_attribute_counter}]" do |attribute|
+        = attribute.hidden_field :class_name, :value => page_attribute.class_name
+        = attribute.hidden_field :name, :value => page_attribute.name
   %td.field
-    = render :partial => "/admin/page_attributes/#{page_attribute.class.partial_name}", :locals => { :page_attribute => page_attribute, :page_attribute_counter => page_attribute_counter }
+    - fields_for "page[build_page_attributes][#{page_attribute_counter}]" do |attribute|
+      = render :partial => "/admin/page_attributes/#{page_attribute.class.partial_name}", :locals => { :attribute => attribute, :page_attribute => page_attribute, :page_attribute_counter => page_attribute_counter }
     - page_attribute_counter += 1
     = link_to_function image('minus', :alt => 'minus'), 'if(confirm(\'Delete this attribute?\')) { alert("TODO: Implement deletion.") }', :title => 'Remove Attribute'
   
