@@ -17,9 +17,9 @@ module Structures
       end
     end
     
-    def build_page_attributes=(*args)
-      self.page_attributes.clear
-      args.flatten.each do |hash|
+    def build_page_attributes=(args={})
+      self.page_attributes.destroy_all
+      args.each_pair do |i,hash|
         attr = self.page_attributes.build(hash)
         attr.page = self
       end
