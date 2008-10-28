@@ -1,4 +1,4 @@
-#add-structure-popup  {
+#add-attributes-popup  {
   background-color: white;
   border: 5px solid silver;
   padding: 2em;
@@ -6,12 +6,12 @@
   padding-bottom: .5em;
   width: 17em;
 }
-#add-structure-popup .busy {
+#add-attributes-popup .busy {
   float: right;
 }
-#add-structure-popup h3 {
+#add-attributes-popup h3 {
   margin-top: 0;
 }
-#add-structure-popup .close-link {
+#add-attributes-popup .close-link {
   font-size: 85%;
 }

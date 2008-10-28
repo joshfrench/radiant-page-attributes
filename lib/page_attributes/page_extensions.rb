@@ -1,4 +1,4 @@
-module Structures
+module PageAttributes
   module PageExtensions
     
     def self.included(base)

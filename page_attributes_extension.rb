@@ -1,7 +1,7 @@
 # Uncomment this if you reference any of your controllers in activate
 # require_dependency 'application'
 
-class StructuresExtension < Radiant::Extension
+class PageAttributesExtension < Radiant::Extension
   version "0.1"
   description "Add basic attributes to pages"
   url "http://radiantcms.org"
@@ -11,10 +11,10 @@ class StructuresExtension < Radiant::Extension
   end
   
   def activate
-    Page.send(:include, Structures::PageExtensions)
+    Page.send(:include, PageAttributes::PageExtensions)
     admin.page.edit.add :form, "admin/page_attributes/add_page_attribute", :after => 'edit_extended_metadata'
     admin.page.edit.add :popups, "admin/page_attributes/add_page_attribute_popup"
-    Dir.glob(File.join(StructuresExtension.root, %w(app models), '*.rb')).each { |f| require_dependency f }
+    Dir.glob(File.join(PageAttributesExtension.root, %w(app models), '*.rb')).each { |f| require_dependency f }
   end
 
   def deactivate
