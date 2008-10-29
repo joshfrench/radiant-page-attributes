@@ -14,14 +14,11 @@ class PageAttribute < ActiveRecord::Base
   class << self
     def new(attributes={})
       attributes = HashWithIndifferentAccess.new(attributes)
-      new_record = super(attributes)
       if klass_name = attributes.delete(:class_name) and self.base_class.is_descendant_class_name?(klass_name)
-        klass = klass_name.constantize
-        new_record = new_record.becomes(klass)
-        new_record.class_name = klass_name
-        new_record.write_attribute(klass.storage_column, attributes[:value])
+        klass_name.constantize.new(attributes)
+      else
+        super(attributes)
       end
-      new_record
     end
     
     def storage(type)
