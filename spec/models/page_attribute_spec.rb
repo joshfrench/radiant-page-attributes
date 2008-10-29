@@ -34,25 +34,6 @@ describe PageAttribute do
     p.datetime_value.to_s.should eql(Time.now.to_s)
   end
 
-  it "should serialize the value" do
-    @s.value = "1"
-    @s.serialize!
-    
-    @s.value.should be_true
-    
-    @s.value = "nooooooooooo!"
-    @s.serialize!
-    
-    @s.value.should be_false
-  end
-
-  it "should serialize! before saving" do
-    @s.value = "1"
-    @s.save!
-    
-    @s.value.should == true
-  end
-
   it "should not set class_name if param is invalid" do
     p = PageAttribute.new(:class_name => 'User')
     p.should be_kind_of(PageAttribute)

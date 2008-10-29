@@ -9,7 +9,6 @@ class PageAttribute < ActiveRecord::Base
   belongs_to :page
 
   class_inheritable_accessor :storage_column
-  before_save :serialize!
   
   class << self
     def new(attributes={})
@@ -41,15 +40,6 @@ class PageAttribute < ActiveRecord::Base
   
   def class_name=(klass)
     self.write_attribute(:class_name, klass) if self.class.base_class.is_descendant_class_name?(klass)
-  end
-  
-  # Override to change behavior when the page is rendered
-  def render
-  end
-  
-  # Override for saving data from form
-  def serialize!
-    return self
   end
   
   private
