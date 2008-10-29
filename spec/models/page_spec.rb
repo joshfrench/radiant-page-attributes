@@ -3,42 +3,18 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Page do
   scenario :pages
   
-  before do
-    @page_attrs = { :title => 'Page', :slug => 'Slug', :breadcrumb => 'Crumb', :status_id => 100 }
-  end
-  
-  it "should accept key/value pairs" do
-    page = Page.new
-    page.page_attributes['foo'] = 'bar'
-    attr = page.page_attributes.first
-    attr.name.should eql('foo')
-    attr.value.should eql('bar')
-  end
-  
   it "should find by name" do
     page = pages(:first)
-    page.page_attributes['foo'] = 'bar'
-    page.save
-    
-    page.reload
-    page.page_attributes['foo'].should eql('bar')
-  end
-  
-  it "should save attributes when new" do
-    page = Page.new(@page_attrs)
-    page.page_attributes['foo'] = 'bar'
-    page.save!
-    
-    page.reload
-    page.page_attributes['foo'].should eql('bar')
+    s = SimpleString.new(:name => 'foo', :value => 'bar')
+    page.page_attributes << s
+    page.reload.page_attributes['foo'].should eql('bar')
   end
   
   it "should set page_id when saving targets" do
     page = pages(:first)
-    page.page_attributes['foo'] = 'bar'
-    page.save
-    page.reload
-    page.page_attributes.first.page_id.should eql(page.id)
+    s = SimpleString.new(:name => 'foo', :value => 'bar')
+    page.page_attributes << s
+    s.reload.page_id.should eql(page_id(:first))
   end
   
   it "should accept POST-like params" do

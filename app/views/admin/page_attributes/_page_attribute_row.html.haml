@@ -12,4 +12,3 @@
       = render :partial => "/admin/page_attributes/#{page_attribute.class.partial_name}", :locals => { :attribute => attribute, :page_attribute => page_attribute, :page_attribute_counter => page_attribute_counter }
     = link_to_function image('minus', :alt => 'minus'), %{if(confirm('Delete this attribute?')) { page_attribute_removed('page-attribute-#{page_attribute_counter}') }}, :title => 'Remove Attribute'
 - page_attribute_counter += 1
-  

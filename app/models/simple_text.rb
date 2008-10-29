@@ -1,2 +1,3 @@
-class SimpleText < PageAttribute  
+class SimpleText < PageAttribute
+  storage :text
 end

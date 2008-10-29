@@ -1,9 +1,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PageAttribute do
+  scenario :pages
+  
   before(:each) do
-    @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean", 
-      :page => Page.create({ :title => 'Page', :slug => 'Slug', :breadcrumb => 'Crumb', :status_id => 100 }))
+    @s = PageAttribute.new(:name => "Should I?", :boolean_value => true,
+                           :class_name => "SimpleBoolean", :page => pages(:home))
   end
 
   it "should give a display_name for the class" do
@@ -24,27 +26,25 @@ describe PageAttribute do
     attribute.should be_kind_of(PageAttribute)
   end
 
-  it "should serialize the value" do
-    @s.value = "1"
-    @s.serialize!
-    
-    @s.value.should be_true
-    
-    @s.value = "nooooooooooo!"
-    @s.serialize!
-    
-    @s.value.should be_false
-  end
+  it "should pass value to appropriate column" do
+    p = PageAttribute.new(:name => 'string', :value => 'foo', :class_name => 'SimpleString')
+    p.string_value.should eql('foo')
 
-  it "should serialize! before saving" do
-    @s.value = "1"
-    @s.save!
-    
-    @s.value.should == true
+    p = PageAttribute.new(:name => 'date', :value => Time.now, :class_name => 'SimpleDateTime')
+    p.datetime_value.to_s.should eql(Time.now.to_s)
   end
 
   it "should not set class_name if param is invalid" do
     p = PageAttribute.new(:class_name => 'User')
     p.should be_kind_of(PageAttribute)
+  end
+
+  it "should set storage column" do
+    p = PageAttribute.new(:boolean_value => true, :string_value => 'marmelade')
+    PageAttribute.storage(:boolean)
+    p.value.should eql(true)
+
+    PageAttribute.storage(:string)
+    p.value.should eql('marmelade')
   end
 end
