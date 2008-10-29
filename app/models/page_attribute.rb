@@ -35,10 +35,6 @@ class PageAttribute < ActiveRecord::Base
     end
   end
   
-  def class_name=(klass)
-    self.write_attribute(:class_name, klass) if self.class.base_class.is_descendant_class_name?(klass)
-  end
-  
   private
 
     def valid_class_name
