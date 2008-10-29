@@ -21,6 +21,10 @@ class PageAttribute < ActiveRecord::Base
       new_record
     end
     
+    def storage(type)
+      alias_attribute :value, "#{type}_value"
+    end
+
     def display_name
       self.name.titleize
     end

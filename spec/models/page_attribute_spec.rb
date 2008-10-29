@@ -1,9 +1,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PageAttribute do
+  scenario :pages
+  
   before(:each) do
-    @s = PageAttribute.new(:name => "Should I?", :value => "Yes", :class_name => "SimpleBoolean", 
-      :page => Page.create({ :title => 'Page', :slug => 'Slug', :breadcrumb => 'Crumb', :status_id => 100 }))
+    @s = PageAttribute.new(:name => "Should I?", :boolean_value => true,
+                           :class_name => "SimpleBoolean", :page => pages(:home))
   end
 
   it "should give a display_name for the class" do
@@ -46,5 +48,14 @@ describe PageAttribute do
   it "should not set class_name if param is invalid" do
     p = PageAttribute.new(:class_name => 'User')
     p.should be_kind_of(PageAttribute)
+  end
+
+  it "should set storage column" do
+    p = PageAttribute.new(:boolean_value => true, :string_value => 'marmelade')
+    PageAttribute.storage(:boolean)
+    p.value.should eql(true)
+
+    PageAttribute.storage(:string)
+    p.value.should eql('marmelade')
   end
 end
