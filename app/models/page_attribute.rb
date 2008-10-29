@@ -10,26 +10,28 @@ class PageAttribute < ActiveRecord::Base
 
   before_save :serialize!
   
-  def self.new(attributes={})
-    attributes = HashWithIndifferentAccess.new(attributes)
-    new_record = super(attributes)
-    if klass_name = attributes.delete(:class_name) and self.base_class.is_descendant_class_name?(klass_name)
-      new_record = new_record.becomes(klass_name.constantize)
-      new_record.class_name = klass_name
+  class << self
+    def new(attributes={})
+      attributes = HashWithIndifferentAccess.new(attributes)
+      new_record = super(attributes)
+      if klass_name = attributes.delete(:class_name) and self.base_class.is_descendant_class_name?(klass_name)
+        new_record = new_record.becomes(klass_name.constantize)
+        new_record.class_name = klass_name
+      end
+      new_record
     end
-    new_record
+    
+    def display_name
+      self.name.titleize
+    end
+
+    def partial_name
+      self.name.gsub(" ", '').underscore
+    end
   end
   
   def class_name=(klass)
     self.write_attribute(:class_name, klass) if self.class.base_class.is_descendant_class_name?(klass)
-  end
-
-  def self.display_name
-    self.name.titleize
-  end
-  
-  def self.partial_name
-    self.name.gsub(" ", '').underscore
   end
   
   # Override to change behavior when the page is rendered
@@ -42,13 +44,14 @@ class PageAttribute < ActiveRecord::Base
   end
   
   private
-  def valid_class_name
-    unless PageAttribute.is_descendant_class_name?(class_name)
-      errors.add :class_name, "must be set to a valid descendant of PageAttribute"
+
+    def valid_class_name
+      unless PageAttribute.is_descendant_class_name?(class_name)
+        errors.add :class_name, "must be set to a valid descendant of PageAttribute"
+      end
     end
-  end
   
-  def self.is_descendant_class_name?(class_name)
-    (PageAttribute.descendants.map(&:to_s) + [nil, "", "PageAttribute"]).include?(class_name)
-  end
+    def self.is_descendant_class_name?(class_name)
+      (PageAttribute.descendants.map(&:to_s) + [nil, "", "PageAttribute"]).include?(class_name)
+    end
 end
