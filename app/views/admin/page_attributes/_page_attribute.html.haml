@@ -1,6 +1,6 @@
-%tr
+%tr{:id => "page-attribute-#{page_attribute_counter}"}
   %th.label
-    %label{:for => "page_attribute_#{page_attribute_counter}"}
+    %label{:for => "page_build_page_attributes__#{page_attribute_counter}_class_name"}
       = page_attribute.name
       %small.info
         = "(#{page_attribute.class.display_name})"
@@ -10,6 +10,6 @@
   %td.field
     - fields_for "page[build_page_attributes][#{page_attribute_counter}]" do |attribute|
       = render :partial => "/admin/page_attributes/#{page_attribute.class.partial_name}", :locals => { :attribute => attribute, :page_attribute => page_attribute, :page_attribute_counter => page_attribute_counter }
-    - page_attribute_counter += 1
-    = link_to_function image('minus', :alt => 'minus'), 'if(confirm(\'Delete this attribute?\')) { alert("TODO: Implement deletion.") }', :title => 'Remove Attribute'
+    = link_to_function image('minus', :alt => 'minus'), %{if(confirm('Delete this attribute?')) { page_attribute_removed('page-attribute-#{page_attribute_counter}') }}, :title => 'Remove Attribute'
+- page_attribute_counter += 1
   
