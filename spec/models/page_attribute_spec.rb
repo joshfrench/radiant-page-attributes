@@ -26,6 +26,14 @@ describe PageAttribute do
     attribute.should be_kind_of(PageAttribute)
   end
 
+  it "should pass value to appropriate column" do
+    p = PageAttribute.new(:name => 'string', :value => 'foo', :class_name => 'SimpleString')
+    p.string_value.should eql('foo')
+
+    p = PageAttribute.new(:name => 'date', :value => Time.now, :class_name => 'SimpleDateTime')
+    p.datetime_value.to_s.should eql(Time.now.to_s)
+  end
+
   it "should serialize the value" do
     @s.value = "1"
     @s.serialize!

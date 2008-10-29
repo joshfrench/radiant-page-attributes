@@ -5,24 +5,29 @@ class PageAttribute < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :page_id
   validate :valid_class_name
-  
+
   belongs_to :page
 
+  class_inheritable_accessor :storage_column
   before_save :serialize!
   
   class << self
     def new(attributes={})
       attributes = HashWithIndifferentAccess.new(attributes)
+      value = attributes.delete(:value)
       new_record = super(attributes)
       if klass_name = attributes.delete(:class_name) and self.base_class.is_descendant_class_name?(klass_name)
-        new_record = new_record.becomes(klass_name.constantize)
+        klass = klass_name.constantize
+        new_record = new_record.becomes(klass)
         new_record.class_name = klass_name
+        new_record.write_attribute(klass.storage_column, value)
       end
       new_record
     end
     
     def storage(type)
-      alias_attribute :value, "#{type}_value"
+      self.storage_column = "#{type}_value"
+      alias_attribute :value, self.storage_column
     end
 
     def display_name
