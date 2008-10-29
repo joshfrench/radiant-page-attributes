@@ -9,7 +9,9 @@ class PageAttribute < ActiveRecord::Base
   belongs_to :page
 
   class_inheritable_accessor :storage_column
-  attr_accessor :value
+  self.storage_column = :text_value
+  alias_attribute :value, :text_value
+  serialize :value
   
   class << self
     def new(attributes={})
