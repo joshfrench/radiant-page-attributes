@@ -3,7 +3,7 @@ module PageAttributes
     
     def self.included(base)
       base.class_eval do
-        has_many :page_attributes do
+        has_many :page_attributes, :dependent => :destroy do
           def [](name)
             if attr = self.find_by_name(name)
               attr.value

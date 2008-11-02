@@ -29,4 +29,13 @@ describe Page do
     page.reload.page_attributes
   end
   
+  it "should destroy associated page attributes" do
+    bool = SimpleBoolean.new(:name => 'bool', :value => true)
+    page = pages(:first)
+    page.page_attributes << bool
+    lambda {
+      page.destroy
+    }.should change(PageAttribute, :count).by(-1)
+  end
+
 end
