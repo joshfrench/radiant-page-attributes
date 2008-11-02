@@ -7,7 +7,9 @@ class PageAttributesExtension < Radiant::Extension
   url "http://radiantcms.org"
   
   define_routes do |map|
-    map.admin_page_attribute_form 'admin/page_attributes/form', :controller => 'admin/page_attributes', :action => "form"
+    map.admin_page_attributes 'admin/page_attributes',
+                                 :controller => 'admin/page_attributes',
+                                 :action => "create", :conditions => { :method => :post }
   end
   
   def activate
