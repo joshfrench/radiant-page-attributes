@@ -1,15 +1,13 @@
-- page_attribute_counter = 0
-%tr{:id => "page-attribute-#{page_attribute_counter}"}
+%tr{:id => "page-attribute-#{page_attribute_row_counter}"}
   %th.label
-    %label{:for => "page_build_page_attributes__#{page_attribute_counter}_class_name"}
+    %label{:for => "page_build_page_attributes__#{page_attribute_row_counter}_class_name"}
       = page_attribute_row.name
       %small.info
         = "(#{page_attribute_row.class.display_name})"
-      - fields_for "page[build_page_attributes][#{page_attribute_counter}]" do |attribute|
+      - fields_for "page[build_page_attributes][#{page_attribute_row_counter}]" do |attribute|
         = attribute.hidden_field :class_name, :value => page_attribute_row.class_name
         = attribute.hidden_field :name, :value => page_attribute_row.name
   %td.field
-    - fields_for "page[build_page_attributes][#{page_attribute_counter}]" do |attribute|
-      = render :partial => "/admin/page_attributes/#{page_attribute_row.class.partial_name}", :locals => { :attribute => attribute, :page_attribute => page_attribute_row, :page_attribute_counter => page_attribute_counter }
-    = link_to_function image('minus', :alt => 'minus'), %{if(confirm('Delete this attribute?')) { page_attribute_removed('page-attribute-#{page_attribute_counter}') }}, :title => 'Remove Attribute'
-- page_attribute_counter += 1
+    - fields_for "page[build_page_attributes][#{page_attribute_row_counter}]" do |attribute|
+      = render :partial => "/admin/page_attributes/#{page_attribute_row.class.partial_name}", :locals => { :attribute => attribute, :page_attribute => page_attribute_row }
+    = link_to_function image('minus', :alt => 'minus'), %{if(confirm('Delete this attribute?')) { page_attribute_removed('page-attribute-#{page_attribute_row_counter}') }}, :title => 'Remove Attribute'
