@@ -23,9 +23,9 @@ function page_attribute_loading() {
 }
 
 function page_attribute_added(response) {
-  console.log($('add-page-attribute-popup'));
   $('page-attribute-name-field').value = "";
   $('add-page-attribute-popup').hide();
+  $('page-attribute-index-field').value = parseInt($('page-attribute-index-field').value) + 1;
 }
 
 function page_attribute_removed(id) {

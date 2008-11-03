@@ -1,9 +1,9 @@
 #add-page-attribute-popup.popup{:style => "display: none"}
   #page-attribute-busy.busy{:style => "display: none"}= image 'spinner.gif'
   %h3 Add Attribute
-  - form_remote_tag(:url => admin_page_attributes_path, :update => "page-attributes-fieldset", :position => :bottom, :loading => 'page-attribute_loading()', :success => 'page_attribute_added()', :condition => 'valid_page_attribute_name()', :html => {:method => :post}) do
+  - remote_form_for([:admin, PageAttribute.new], :update => "page-attributes-fieldset", :position => :bottom, :loading => 'page-attribute_loading()', :success => 'page_attribute_added()', :condition => 'valid_page_attribute_name()', :html => {:method => :post}) do
     %div
-      = hidden_field_tag 'index', @index, :id => 'page-attribute-index-field'
+      = hidden_field_tag 'index', @page.page_attributes.size, :id => 'page-attribute-index-field'
       = text_field_tag "page_attribute[name]", "", :id => 'page-attribute-name-field', :maxlength => 100
       = select_tag "page_attribute[class_name]", options_for_select(PageAttribute.descendants.map {|c| [c.display_name, c.name]})
       = submit_tag "Add", :id => 'add-page-attribute-button'
