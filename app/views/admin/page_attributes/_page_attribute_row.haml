@@ -1,3 +1,6 @@
+-# counter is initialized after locals are assigned -- have to override it here when creating new rows
+- page_attribute_row_counter = params[:index] if request.format.js?
+
 %tr{:id => "page-attribute-#{page_attribute_row_counter}"}
   %th.label
     %label{:for => "page_build_page_attributes__#{page_attribute_row_counter}_class_name"}
