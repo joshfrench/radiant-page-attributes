@@ -5,4 +5,5 @@
   #add-page-attribute
     = link_to_function image('plus', :alt => 'plus'), 'toggle_add_page_attribute_popup()', :title => 'Add Page Attribute'
   %table.fieldset#page-attributes-fieldset
+    = hidden_field_tag 'page[page_attributes][-1][value]', '' # clear page_attributes if none submitted
     = render :partial => "/admin/page_attributes/page_attribute_row", :collection => @page.page_attributes
